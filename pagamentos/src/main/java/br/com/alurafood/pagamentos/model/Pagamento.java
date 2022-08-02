@@ -1,6 +1,8 @@
 package br.com.alurafood.pagamentos.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -63,5 +66,8 @@ public class Pagamento {
 
     @NotNull
     private UUID formaPagamentoId;
+
+    @CreatedDate
+    private LocalDateTime dataCriacao;
 
 }
