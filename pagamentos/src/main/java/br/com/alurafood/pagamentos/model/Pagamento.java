@@ -42,32 +42,40 @@ public class Pagamento {
 
     @NotNull
     @Positive
+    @Column(name = "valor")
     private BigDecimal valor;
 
     @NotBlank
     @Size(max = 100)
+    @Column(name = "nome")
     private String nome;
 
     @NotBlank
     @Size(max = 19)
+    @Column(name = "numero")
     private String numero;
 
     @NotBlank
     @Size(max = 7)
+    @Column(name = "expiracao")
     private String expiracao;
 
     @NotBlank
     @Size(min = 3, max = 3)
+    @Column(name = "codigo")
     private String codigo;
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private Status status;
 
     @NotNull
+    @Column(name = "pedido_id")
     private UUID pedidoId;
 
     @NotNull
+    @Column(name = "forma_pagamento_id")
     private UUID formaPagamentoId;
 
     @CreatedDate
