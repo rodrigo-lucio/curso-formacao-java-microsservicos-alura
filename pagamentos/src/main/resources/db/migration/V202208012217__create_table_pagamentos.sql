@@ -8,6 +8,7 @@ CREATE TABLE pagamentos (
     status varchar(255) NOT NULL,
     forma_pagamento_id uuid NOT NULL,
     pedido_id uuid NOT NULL,
-    data_criacao timestamp without time zone,
+    data_hora_criacao timestamp without time zone,
+    data_hora_atualizacao timestamp without time zone,
     PRIMARY KEY (id)
 );

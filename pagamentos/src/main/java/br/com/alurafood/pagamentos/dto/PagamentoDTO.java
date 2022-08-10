@@ -1,17 +1,20 @@
 package br.com.alurafood.pagamentos.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import br.com.alurafood.pagamentos.model.Status;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PagamentoDTO {
 
     private UUID id;
@@ -23,5 +26,6 @@ public class PagamentoDTO {
     private Status status;
     private UUID pedidoId;
     private UUID formaPagamentoId;
-
+    private LocalDateTime dataCriacao;
+    private LocalDateTime dataAtualizacao;
 }

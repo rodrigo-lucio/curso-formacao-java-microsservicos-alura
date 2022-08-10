@@ -1,11 +1,12 @@
 package br.com.alurafood.pagamentos.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -18,23 +19,25 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "pagamentos")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Pagamento {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "id", updatable = false)
     private UUID id;
 
     @NotNull
@@ -68,6 +71,11 @@ public class Pagamento {
     private UUID formaPagamentoId;
 
     @CreatedDate
-    private LocalDateTime dataCriacao;
+    @Column(name = "data_hora_criacao", updatable = false)
+    private LocalDateTime dataHoraCriacao;
+
+    @LastModifiedDate
+    @Column(name = "data_hora_atualizacao")
+    private LocalDateTime dataHoraAtualizacao;
 
 }

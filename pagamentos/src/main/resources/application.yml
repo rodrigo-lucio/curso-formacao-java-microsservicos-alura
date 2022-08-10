@@ -4,3 +4,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/pagamento?useTimezone=true&serverTimezone=UTC
     username: postgres
     password: postgres
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect

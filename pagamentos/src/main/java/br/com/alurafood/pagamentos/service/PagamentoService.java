@@ -49,7 +49,7 @@ public class PagamentoService {
     public PagamentoDTO atualizar(UUID id, PagamentoDTO dto) {
         Pagamento pagamento = modelMapper.map(dto, Pagamento.class);
         pagamento.setId(id);
-        pagamento = repository.save(pagamento);
+        pagamento = repository.saveAndFlush(pagamento);
         return modelMapper.map(pagamento, PagamentoDTO.class);
     }
 
