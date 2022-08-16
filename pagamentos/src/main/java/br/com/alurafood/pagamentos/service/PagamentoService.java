@@ -6,7 +6,9 @@ import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -47,9 +49,11 @@ public class PagamentoService {
 
     @Transactional
     public PagamentoDTO atualizar(UUID id, PagamentoDTO dto) {
-        Pagamento pagamento = modelMapper.map(dto, Pagamento.class);
-        pagamento.setId(id);
-        pagamento = repository.saveAndFlush(pagamento);
+        Pagamento pagamento = repository.findById(id)
+                .orElseThrow(() -> new EmptyResultDataAccessException("Recurso não não encontrado para o id " + id, 1));
+        Pagamento pagamentoAtualizado = modelMapper.map(dto, Pagamento.class);
+        BeanUtils.copyProperties(pagamentoAtualizado, pagamento, "id");
+        repository.saveAndFlush(pagamento);
         return modelMapper.map(pagamento, PagamentoDTO.class);
     }
 

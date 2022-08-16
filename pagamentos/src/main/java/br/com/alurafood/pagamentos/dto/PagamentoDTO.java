@@ -26,6 +26,6 @@ public class PagamentoDTO {
     private Status status;
     private UUID pedidoId;
     private UUID formaPagamentoId;
-    private LocalDateTime dataCriacao;
-    private LocalDateTime dataAtualizacao;
+    private LocalDateTime dataHoraCriacao;
+    private LocalDateTime dataHoraAtualizacao;
 }
