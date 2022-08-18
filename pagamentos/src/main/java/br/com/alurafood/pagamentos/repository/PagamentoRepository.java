@@ -11,6 +11,4 @@ import br.com.alurafood.pagamentos.model.Pagamento;
 @Repository
 public interface PagamentoRepository extends JpaRepository<Pagamento, UUID> {
 
-
-
 }

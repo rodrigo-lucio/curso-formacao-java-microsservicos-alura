@@ -27,7 +27,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "pagamentos")
+@Table(name = "pagamento")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -79,11 +79,11 @@ public class Pagamento {
     private UUID formaPagamentoId;
 
     @CreatedDate
-    @Column(name = "data_hora_criacao", updatable = false)
-    private LocalDateTime dataHoraCriacao;
+    @Column(name = "criado_em", updatable = false)
+    private LocalDateTime criadoEm;
 
     @LastModifiedDate
-    @Column(name = "data_hora_atualizacao")
-    private LocalDateTime dataHoraAtualizacao;
+    @Column(name = "atualizado_em")
+    private LocalDateTime atualizadoEm;
 
 }

@@ -24,14 +24,14 @@ import br.com.alurafood.pagamentos.dto.PagamentoDTO;
 import br.com.alurafood.pagamentos.service.PagamentoService;
 
 @RestController
-@RequestMapping("pagamentos")
+@RequestMapping("pagamento")
 public class PagamentoController {
 
     @Autowired
     public PagamentoService service;
 
     @GetMapping
-    public Page<PagamentoDTO> listar(@PageableDefault(size = 10) Pageable paginacao){
+    public Page<PagamentoDTO> listar(@PageableDefault Pageable paginacao){
         return service.buscarTodos(paginacao);
     }
 
@@ -43,7 +43,7 @@ public class PagamentoController {
     @PostMapping
     public ResponseEntity<PagamentoDTO> criar(@RequestBody PagamentoDTO pagamentoDTO, UriComponentsBuilder uriBuilder) {
         PagamentoDTO pagamentoCriado = service.criar(pagamentoDTO);
-        URI endereco = uriBuilder.path("/pagamentos/{id}").buildAndExpand(pagamentoCriado.getId()).toUri();
+        URI endereco = uriBuilder.path("/pagamento/{id}").buildAndExpand(pagamentoCriado.getId()).toUri();
         return ResponseEntity.created(endereco).body(pagamentoCriado);
     }
 
