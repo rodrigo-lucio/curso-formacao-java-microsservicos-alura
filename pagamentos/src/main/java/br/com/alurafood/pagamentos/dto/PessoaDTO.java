@@ -23,5 +23,6 @@ public class PessoaDTO {
     private String email;
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
+    private UUID pedidoId;
 
 }

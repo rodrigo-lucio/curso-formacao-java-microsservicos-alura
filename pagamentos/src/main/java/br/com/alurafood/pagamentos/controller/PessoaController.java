@@ -12,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.alurafood.pagamentos.dto.PessoaDTO;
-import br.com.alurafood.pagamentos.service.PagamentoService;
 import br.com.alurafood.pagamentos.service.PessoaService;
 
 @RestController
@@ -36,25 +36,31 @@ public class PessoaController {
         return service.buscarTodos(paginacao);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public PessoaDTO buscarPorId(@PathVariable @NotNull UUID id) {
         return service.buscarPorId(id);
     }
 
     @PostMapping
     public ResponseEntity<PessoaDTO> criar(@RequestBody PessoaDTO pessoaDTO, UriComponentsBuilder uriBuilder) {
-        PessoaDTO pagamentoCriado = service.criar(pessoaDTO);
-        URI endereco = uriBuilder.path("/pessoa/{id}").buildAndExpand(pagamentoCriado.getId()).toUri();
-        return ResponseEntity.created(endereco).body(pagamentoCriado);
+        PessoaDTO pessoaCriada = service.criar(pessoaDTO);
+        URI endereco = uriBuilder.path("/pessoa/{id}").buildAndExpand(pessoaCriada.getId()).toUri();
+        return ResponseEntity.created(endereco).body(pessoaCriada);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<PessoaDTO> atualizar(@PathVariable @NotNull UUID id, @RequestBody PessoaDTO pessoaDTO) {
-        PessoaDTO pagamentoAtualizado = service.atualizar(id, pessoaDTO);
-        return ResponseEntity.ok(pagamentoAtualizado);
+        PessoaDTO pessoaAtualizada = service.atualizar(id, pessoaDTO);
+        return ResponseEntity.ok(pessoaAtualizada);
     }
 
-    @DeleteMapping("/{id}")
+    @PatchMapping("{id}")
+    public ResponseEntity<PessoaDTO> atualizarParcialmente(@PathVariable @NotNull UUID id, @RequestBody PessoaDTO pessoaDTO) {
+        PessoaDTO pessoaAtualizada = service.atualizarParcialmente(id, pessoaDTO);
+        return ResponseEntity.ok(pessoaAtualizada);
+    }
+
+    @DeleteMapping("{id}")
     public ResponseEntity<PessoaDTO> remover(@PathVariable @NotNull UUID id) {
         service.remover(id);
         return ResponseEntity.noContent().build();

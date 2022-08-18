@@ -2,10 +2,7 @@ package br.com.alurafood.pagamentos.service;
 
 import java.util.UUID;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -16,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.alurafood.pagamentos.dto.PessoaDTO;
 import br.com.alurafood.pagamentos.model.Pessoa;
 import br.com.alurafood.pagamentos.repository.PessoaRepository;
+import br.com.alurafood.pagamentos.util.Utils;
 
 @Service
 public class PessoaService {
@@ -28,34 +26,54 @@ public class PessoaService {
 
     public Page<PessoaDTO> buscarTodos(Pageable pageable) {
         return pessoaRepository.findAll(pageable)
-                .map(pagamento -> modelMapper.map(pagamento, PessoaDTO.class));
+                .map(pessoa -> toPessoaDto(pessoa));
     }
 
     public PessoaDTO buscarPorId(UUID id) {
-        Pessoa pessoa = pessoaRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException());
-        return modelMapper.map(pessoa, PessoaDTO.class);
+        Pessoa pessoa = buscarPessoa(id);
+        return toPessoaDto(pessoa);
     }
 
     @Transactional
     public PessoaDTO criar(PessoaDTO dto) {
-        Pessoa pessoa = modelMapper.map(dto, Pessoa.class);
-        pessoaRepository.save(pessoa);
-        return modelMapper.map(pessoa, PessoaDTO.class);
+        Pessoa pessoa = toPessoaEntity(dto);
+        pessoaRepository.saveAndFlush(pessoa);
+        return toPessoaDto(pessoa);
     }
 
     @Transactional
     public PessoaDTO atualizar(UUID id, PessoaDTO dto) {
-        Pessoa pagamento = pessoaRepository.findById(id)
-                .orElseThrow(() -> new EmptyResultDataAccessException("Recurso não não encontrado para o id " + id, 1));
-        Pessoa pagamentoAtualizado = modelMapper.map(dto, Pessoa.class);
-        BeanUtils.copyProperties(pagamentoAtualizado, pagamento, "id");
-        pessoaRepository.saveAndFlush(pagamento);
-        return modelMapper.map(pagamento, PessoaDTO.class);
+        Pessoa pessoa = buscarPessoa(id);
+        Utils.copyProperties(toPessoaEntity(dto), pessoa, "id");
+        pessoaRepository.saveAndFlush(pessoa);
+        return toPessoaDto(pessoa);
+    }
+
+    @Transactional
+    public PessoaDTO atualizarParcialmente(UUID id, PessoaDTO dto) {
+        Pessoa pessoa = buscarPessoa(id);
+        Utils.copyNonNullProperties(toPessoaEntity(dto), pessoa);
+        pessoaRepository.saveAndFlush(pessoa);
+        return toPessoaDto(pessoa);
     }
 
     @Transactional
     public void remover(UUID id) {
         pessoaRepository.deleteById(id);
     }
+    
+    private Pessoa buscarPessoa(UUID id) {
+        Pessoa pessoa = pessoaRepository.findById(id)
+                .orElseThrow(() -> new EmptyResultDataAccessException("Recurso não não encontrado para o id " + id, 1));
+        return pessoa;
+    }
+
+    private PessoaDTO toPessoaDto(Pessoa pessoa) {
+        return modelMapper.map(pessoa, PessoaDTO.class);
+    }
+
+    private Pessoa toPessoaEntity(PessoaDTO dto) {
+        return modelMapper.map(dto, Pessoa.class);
+    }
+
 }
