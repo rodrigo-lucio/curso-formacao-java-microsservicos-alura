@@ -66,7 +66,4 @@ public class Pessoa {
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 
-    @Column(name = "pedido_id")
-    private UUID pedidoId;
-
 }
