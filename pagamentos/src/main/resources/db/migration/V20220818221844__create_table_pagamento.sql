@@ -1,4 +1,4 @@
-CREATE TABLE pagamentos (
+CREATE TABLE pagamento (
     id uuid NOT NULL,
     valor numeric(19,2) NOT NULL,
     nome varchar(100) NOT NULL,
