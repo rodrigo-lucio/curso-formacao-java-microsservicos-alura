@@ -1,4 +1,4 @@
-package br.com.alurafood.pagamentos.service;
+package br.com.alurafood.pagamentos.domain.service;
 
 import java.util.UUID;
 
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.alurafood.pagamentos.dto.PessoaDTO;
-import br.com.alurafood.pagamentos.model.Pessoa;
+import br.com.alurafood.pagamentos.domain.model.Pessoa;
 import br.com.alurafood.pagamentos.repository.PessoaRepository;
-import br.com.alurafood.pagamentos.util.Utils;
+import br.com.alurafood.pagamentos.shared.util.Utils;
 
 @Service
 public class PessoaService {

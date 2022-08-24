@@ -1,4 +1,4 @@
-package br.com.alurafood.pagamentos.util;
+package br.com.alurafood.pagamentos.shared.util;
 
 import java.util.HashSet;
 import java.util.Set;

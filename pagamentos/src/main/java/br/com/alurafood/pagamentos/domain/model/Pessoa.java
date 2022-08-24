@@ -1,4 +1,4 @@
-package br.com.alurafood.pagamentos.model;
+package br.com.alurafood.pagamentos.domain.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;

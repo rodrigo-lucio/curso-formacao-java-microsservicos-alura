@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import br.com.alurafood.pagamentos.model.Status;
+import br.com.alurafood.pagamentos.domain.model.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,5 @@
-package br.com.alurafood.pagamentos.service;
+package br.com.alurafood.pagamentos.domain.service;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.EntityNotFoundException;
@@ -15,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.alurafood.pagamentos.dto.PagamentoDTO;
-import br.com.alurafood.pagamentos.model.Pagamento;
-import br.com.alurafood.pagamentos.model.Status;
+import br.com.alurafood.pagamentos.domain.model.Pagamento;
+import br.com.alurafood.pagamentos.domain.model.Status;
 import br.com.alurafood.pagamentos.repository.PagamentoRepository;
 
 @Service

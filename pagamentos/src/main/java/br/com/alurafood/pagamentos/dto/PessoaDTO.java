@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import br.com.alurafood.pagamentos.model.TipoPessoa;
+import br.com.alurafood.pagamentos.domain.model.TipoPessoa;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
