@@ -17,6 +17,7 @@
 		<java.version>17</java.version>
 		<modelmapper-version>3.1.0</modelmapper-version>
 		<flyway-version>8.5.12</flyway-version>
+		<eureka-client-version>3.1.2</eureka-client-version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -36,7 +37,6 @@
 			<artifactId>flyway-core</artifactId>
 			<version>${flyway-version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -62,6 +62,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>${eureka-client-version}</version>
 		</dependency>
 	</dependencies>
 
