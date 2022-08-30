@@ -3,6 +3,7 @@ package br.com.alurafood.pagamentos.api.controller;
 import java.net.URI;
 import java.util.UUID;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class PagamentoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PagamentoDTO> atualizar(@PathVariable @NotNull UUID id, @RequestBody PagamentoDTO pagamentoDTO) {
+    public ResponseEntity<PagamentoDTO> atualizar(@PathVariable @NotNull UUID id, @Valid PagamentoDTO pagamentoDTO) {
         PagamentoDTO pagamentoAtualizado = service.atualizar(id, pagamentoDTO);
         return ResponseEntity.ok(pagamentoAtualizado);
     }
