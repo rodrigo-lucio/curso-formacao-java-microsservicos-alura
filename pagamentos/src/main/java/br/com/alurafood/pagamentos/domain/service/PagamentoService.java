@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.alurafood.pagamentos.infra.dto.PagamentoDTO;
-import br.com.alurafood.pagamentos.domain.model.Pagamento;
-import br.com.alurafood.pagamentos.domain.model.Status;
+import br.com.alurafood.pagamentos.domain.entity.Pagamento;
+import br.com.alurafood.pagamentos.domain.entity.Status;
 import br.com.alurafood.pagamentos.repository.PagamentoRepository;
 
 @Service

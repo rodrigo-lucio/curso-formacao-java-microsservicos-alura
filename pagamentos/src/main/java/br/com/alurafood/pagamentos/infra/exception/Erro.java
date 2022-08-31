@@ -1,4 +1,4 @@
-package br.com.alurafood.pagamentos.api.exception;
+package br.com.alurafood.pagamentos.infra.exception;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class Erro {
 
-	private List<Mensagem> mensagens;
+	private List<Mensagem> camposInvalidos;
 	
 }

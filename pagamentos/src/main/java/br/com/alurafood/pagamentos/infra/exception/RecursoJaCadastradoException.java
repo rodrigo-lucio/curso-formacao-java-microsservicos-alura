@@ -1,4 +1,4 @@
-package br.com.alurafood.pagamentos.api.exception;
+package br.com.alurafood.pagamentos.infra.exception;
 
 public class RecursoJaCadastradoException extends GlobalException {
 

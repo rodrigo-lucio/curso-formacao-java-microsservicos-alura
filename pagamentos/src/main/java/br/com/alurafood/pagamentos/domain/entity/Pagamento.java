@@ -1,5 +1,6 @@
-package br.com.alurafood.pagamentos.domain.model;
+package br.com.alurafood.pagamentos.domain.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -11,8 +12,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -25,12 +27,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "pessoa")
+@Table(name = "pagamento")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Pessoa {
+public class Pagamento {
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -38,25 +40,43 @@ public class Pessoa {
     @Column(name = "id", updatable = false)
     private UUID id;
 
+    @NotNull
+    @Positive
+    @Column(name = "valor")
+    private BigDecimal valor;
+
     @NotBlank
-    @Size(max = 255)
+    @Size(max = 100)
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "tipo_pessoa")
+    @NotBlank
+    @Size(max = 19)
+    @Column(name = "numero")
+    private String numero;
+
+    @NotBlank
+    @Size(max = 7)
+    @Column(name = "expiracao")
+    private String expiracao;
+
+    @NotBlank
+    @Size(min = 3, max = 3)
+    @Column(name = "codigo")
+    private String codigo;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private TipoPessoa tipoPessoa;
+    @Column(name = "status")
+    private Status status;
 
-    @NotBlank
-    @Size(min = 11, max = 14)
-    @Column(name = "cpf_cnpj")
-    private String cpfCnpj;
+    @NotNull
+    @Column(name = "pedido_id")
+    private UUID pedidoId;
 
-    @Email
-    @NotBlank
-    @Size(max = 255)
-    @Column(name = "email")
-    private String email;
+    @NotNull
+    @Column(name = "forma_pagamento_id")
+    private UUID formaPagamentoId;
 
     @CreatedDate
     @Column(name = "criado_em", updatable = false)

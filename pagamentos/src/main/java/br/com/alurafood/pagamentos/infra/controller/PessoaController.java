@@ -1,4 +1,4 @@
-package br.com.alurafood.pagamentos.api.controller;
+package br.com.alurafood.pagamentos.infra.controller;
 
 import java.net.URI;
 import java.util.UUID;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.alurafood.pagamentos.dto.PessoaDTO;
+import br.com.alurafood.pagamentos.infra.dto.PessoaDTO;
 import br.com.alurafood.pagamentos.domain.service.PessoaService;
 
 @RestController

@@ -1,11 +1,11 @@
-package br.com.alurafood.pagamentos.dto;
+package br.com.alurafood.pagamentos.infra.dto;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import br.com.alurafood.pagamentos.domain.model.TipoPessoa;
+import br.com.alurafood.pagamentos.domain.entity.TipoPessoa;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

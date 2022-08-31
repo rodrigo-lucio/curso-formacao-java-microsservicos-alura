@@ -1,4 +1,4 @@
-package br.com.alurafood.pagamentos.domain.model;
+package br.com.alurafood.pagamentos.domain.entity;
 
 public enum Status {
 
