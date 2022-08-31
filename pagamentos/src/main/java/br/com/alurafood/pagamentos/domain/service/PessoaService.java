@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.alurafood.pagamentos.dto.PessoaDTO;
+import br.com.alurafood.pagamentos.infra.dto.PessoaDTO;
 import br.com.alurafood.pagamentos.domain.model.Pessoa;
 import br.com.alurafood.pagamentos.repository.PessoaRepository;
 import br.com.alurafood.pagamentos.shared.util.Utils;
@@ -64,7 +64,7 @@ public class PessoaService {
     
     private Pessoa buscarPessoa(UUID id) {
         Pessoa pessoa = pessoaRepository.findById(id)
-                .orElseThrow(() -> new EmptyResultDataAccessException("Recurso não não encontrado para o id " + id, 1));
+                .orElseThrow(() -> new EmptyResultDataAccessException("Recurso não encontrado para o id " + id, 1));
         return pessoa;
     }
 

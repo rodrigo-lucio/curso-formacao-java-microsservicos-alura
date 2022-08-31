@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.alurafood.pagamentos.dto.PagamentoDTO;
+import br.com.alurafood.pagamentos.infra.dto.PagamentoDTO;
 import br.com.alurafood.pagamentos.domain.model.Pagamento;
 import br.com.alurafood.pagamentos.domain.model.Status;
 import br.com.alurafood.pagamentos.repository.PagamentoRepository;
@@ -49,7 +49,7 @@ public class PagamentoService {
     @Transactional
     public PagamentoDTO atualizar(UUID id, PagamentoDTO dto) {
         Pagamento pagamento = repository.findById(id)
-                .orElseThrow(() -> new EmptyResultDataAccessException("Recurso não não encontrado para o id " + id, 1));
+                .orElseThrow(() -> new EmptyResultDataAccessException("Recurso não encontrado para o id " + id, 1));
         Pagamento pagamentoAtualizado = modelMapper.map(dto, Pagamento.class);
         BeanUtils.copyProperties(pagamentoAtualizado, pagamento, "id");
         repository.saveAndFlush(pagamento);
