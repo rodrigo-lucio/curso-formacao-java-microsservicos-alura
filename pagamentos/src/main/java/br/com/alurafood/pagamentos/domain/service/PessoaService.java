@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.alurafood.pagamentos.infra.dto.PessoaDTO;
 import br.com.alurafood.pagamentos.domain.entity.Pessoa;
-import br.com.alurafood.pagamentos.repository.PessoaRepository;
+import br.com.alurafood.pagamentos.domain.repository.PessoaRepository;
 import br.com.alurafood.pagamentos.shared.util.Utils;
 
 @Service

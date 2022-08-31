@@ -1,4 +1,4 @@
-package br.com.alurafood.pagamentos.repository;
+package br.com.alurafood.pagamentos.domain.repository;
 
 import java.util.UUID;
 
