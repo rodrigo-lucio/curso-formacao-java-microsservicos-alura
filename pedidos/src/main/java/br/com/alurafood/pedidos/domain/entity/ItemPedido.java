@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -32,6 +33,7 @@ public class ItemPedido {
     @Column(name = "quantidade")
     private Integer quantidade;
 
+    @NotBlank
     @Column(name = "descricao")
     private String descricao;
 

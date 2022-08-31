@@ -17,7 +17,7 @@ import br.com.alurafood.pedidos.infra.dto.PedidoDto;
 import br.com.alurafood.pedidos.infra.dto.StatusDto;
 import br.com.alurafood.pedidos.domain.entity.Pedido;
 import br.com.alurafood.pedidos.domain.entity.Status;
-import br.com.alurafood.pedidos.repository.PedidoRepository;
+import br.com.alurafood.pedidos.domain.repository.PedidoRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
