@@ -22,6 +22,9 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.com.alurafood.pagamentos.domain.exception.RecursoJaCadastradoException;
+import br.com.alurafood.pagamentos.domain.exception.ServicoException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -83,12 +86,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({RecursoJaCadastradoException.class})
     public ResponseEntity<Object> handleRecursoJaCadastradoExceptionException(RecursoJaCadastradoException ex) {
-        return customHandleExceptionInternal(ex, new HttpHeaders(), HttpStatus.CONFLICT, null, ex.getMensagem());
+        return customHandleExceptionInternal(ex, new HttpHeaders(), HttpStatus.CONFLICT, null,
+                Mensagem.builder().mensagem(ex.getMensagem()).build());
     }
 
     @ExceptionHandler({ServicoException.class})
     public ResponseEntity<Object> handleServiceException(ServicoException ex) {
-        return customHandleExceptionInternal(ex, new HttpHeaders(), HttpStatus.BAD_REQUEST, null, ex.getMensagem());
+        return customHandleExceptionInternal(ex, new HttpHeaders(), HttpStatus.BAD_REQUEST, null,
+                Mensagem.builder().mensagem(ex.getMensagem()).build());
     }
 
     private ResponseEntity<Object> customHandleExceptionInternal(Exception ex, HttpHeaders headers, HttpStatus status,
