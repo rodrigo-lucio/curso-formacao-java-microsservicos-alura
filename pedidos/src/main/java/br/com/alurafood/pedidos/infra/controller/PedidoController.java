@@ -24,7 +24,7 @@ public class PedidoController {
     @Autowired
     private PedidoService service;
 
-    @GetMapping()
+    @GetMapping
     public List<PedidoDto> listarTodos() {
         return service.obterTodos();
     }
@@ -35,7 +35,7 @@ public class PedidoController {
         return ResponseEntity.ok(dto);
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<PedidoDto> realizaPedido(@RequestBody @Valid PedidoDto dto, UriComponentsBuilder uriBuilder) {
         PedidoDto pedidoRealizado = service.criarPedido(dto);
         URI endereco = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedidoRealizado.getId()).toUri();
