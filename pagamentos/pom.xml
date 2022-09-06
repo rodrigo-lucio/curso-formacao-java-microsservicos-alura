@@ -18,6 +18,7 @@
 		<modelmapper-version>3.1.0</modelmapper-version>
 		<flyway-version>8.5.12</flyway-version>
 		<eureka-client-version>3.1.2</eureka-client-version>
+		<spring-cloud-starter-openfeign-version>3.1.2</spring-cloud-starter-openfeign-version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -67,6 +68,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<version>${spring-cloud-starter-openfeign-version}</version>
 		</dependency>
 	</dependencies>
 
