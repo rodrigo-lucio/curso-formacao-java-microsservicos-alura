@@ -48,6 +48,12 @@ public class PedidoController {
         return ResponseEntity.ok(dto);
     }
 
+    @PatchMapping("/{id}/pago")
+    public ResponseEntity<Void> aprovaPagamento(@PathVariable @NotNull UUID id) {
+        service.aprovaPagamentoPedido(id);
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable @NotNull UUID id) {
         service.remover(id);

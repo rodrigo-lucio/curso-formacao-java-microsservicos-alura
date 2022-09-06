@@ -6,18 +6,17 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.alurafood.pedidos.infra.dto.PedidoDto;
-import br.com.alurafood.pedidos.infra.dto.StatusDto;
 import br.com.alurafood.pedidos.domain.entity.Pedido;
 import br.com.alurafood.pedidos.domain.entity.Status;
 import br.com.alurafood.pedidos.domain.repository.PedidoRepository;
+import br.com.alurafood.pedidos.infra.dto.PedidoDto;
+import br.com.alurafood.pedidos.infra.dto.StatusDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -38,7 +37,7 @@ public class PedidoService {
 
     public PedidoDto obterPorId(UUID id) {
         Pedido pedido = repository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new EmptyResultDataAccessException("Pedido não encontrado para o id " + id, 1));
         return modelMapper.map(pedido, PedidoDto.class);
     }
 
@@ -55,8 +54,8 @@ public class PedidoService {
     @Transactional
     public PedidoDto atualizaStatus(UUID id, StatusDto dto) {
         Pedido pedido = repository.porIdComItens(id);
-        if (pedido == null) {
-            throw new EntityNotFoundException();
+        if (Objects.isNull(pedido)) {
+            throw new EmptyResultDataAccessException("Pedido não encontrado para o id " + id, 1);
         }
         pedido.setStatus(dto.getStatus());
         repository.atualizaStatus(dto.getStatus(), pedido);
@@ -66,8 +65,8 @@ public class PedidoService {
     @Transactional
     public void aprovaPagamentoPedido(UUID id) {
         Pedido pedido = repository.porIdComItens(id);
-        if (Objects.nonNull(pedido)) {
-            throw new EntityNotFoundException();
+        if (Objects.isNull(pedido)) {
+            throw new EmptyResultDataAccessException("Pedido não encontrado para o id " + id, 1);
         }
         pedido.setStatus(Status.PAGO);
         repository.atualizaStatus(Status.PAGO, pedido);
@@ -76,7 +75,7 @@ public class PedidoService {
     @Transactional
     public void remover(UUID id) {
         if (!repository.existsById(id)) {
-            throw new EntityNotFoundException();
+            throw new EmptyResultDataAccessException("Pedido não encontrado para o id " + id, 1);
         }
         repository.deleteById(id);
     }
