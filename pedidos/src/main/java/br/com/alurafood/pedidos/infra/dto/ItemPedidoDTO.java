@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemPedidoDto {
+public class ItemPedidoDTO {
 
     private UUID id;
     private Integer quantidade;

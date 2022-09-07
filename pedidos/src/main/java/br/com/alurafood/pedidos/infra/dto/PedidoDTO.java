@@ -12,11 +12,11 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PedidoDto {
+public class PedidoDTO {
 
     private UUID id;
     private LocalDateTime dataHora;
     private Status status;
-    private List<ItemPedidoDto> itens = new ArrayList<>();
+    private List<ItemPedidoDTO> itens = new ArrayList<>();
 
 }

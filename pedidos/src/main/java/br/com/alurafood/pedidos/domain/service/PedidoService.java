@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.alurafood.pedidos.domain.entity.Pedido;
 import br.com.alurafood.pedidos.domain.entity.Status;
 import br.com.alurafood.pedidos.domain.repository.PedidoRepository;
-import br.com.alurafood.pedidos.infra.dto.PedidoDto;
-import br.com.alurafood.pedidos.infra.dto.StatusDto;
+import br.com.alurafood.pedidos.infra.dto.PedidoDTO;
+import br.com.alurafood.pedidos.infra.dto.StatusDTO;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,37 +29,37 @@ public class PedidoService {
     @Autowired
     private final ModelMapper modelMapper;
 
-    public List<PedidoDto> obterTodos() {
+    public List<PedidoDTO> obterTodos() {
         return repository.findAll().stream()
-                .map(p -> modelMapper.map(p, PedidoDto.class))
+                .map(p -> modelMapper.map(p, PedidoDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public PedidoDto obterPorId(UUID id) {
+    public PedidoDTO obterPorId(UUID id) {
         Pedido pedido = repository.findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException("Pedido não encontrado para o id " + id, 1));
-        return modelMapper.map(pedido, PedidoDto.class);
+        return modelMapper.map(pedido, PedidoDTO.class);
     }
 
     @Transactional
-    public PedidoDto criarPedido(PedidoDto dto) {
+    public PedidoDTO criarPedido(PedidoDTO dto) {
         Pedido pedido = modelMapper.map(dto, Pedido.class);
         pedido.setDataHora(LocalDateTime.now());
         pedido.setStatus(Status.REALIZADO);
         pedido.getItens().forEach(item -> item.setPedido(pedido));
         Pedido salvo = repository.save(pedido);
-        return modelMapper.map(salvo, PedidoDto.class);
+        return modelMapper.map(salvo, PedidoDTO.class);
     }
 
     @Transactional
-    public PedidoDto atualizaStatus(UUID id, StatusDto dto) {
+    public PedidoDTO atualizaStatus(UUID id, StatusDTO dto) {
         Pedido pedido = repository.porIdComItens(id);
         if (Objects.isNull(pedido)) {
             throw new EmptyResultDataAccessException("Pedido não encontrado para o id " + id, 1);
         }
         pedido.setStatus(dto.getStatus());
         repository.atualizaStatus(dto.getStatus(), pedido);
-        return modelMapper.map(pedido, PedidoDto.class);
+        return modelMapper.map(pedido, PedidoDTO.class);
     }
 
     @Transactional

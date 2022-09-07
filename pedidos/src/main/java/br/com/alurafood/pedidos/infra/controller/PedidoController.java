@@ -1,7 +1,7 @@
 package br.com.alurafood.pedidos.infra.controller;
 
-import br.com.alurafood.pedidos.infra.dto.PedidoDto;
-import br.com.alurafood.pedidos.infra.dto.StatusDto;
+import br.com.alurafood.pedidos.infra.dto.PedidoDTO;
+import br.com.alurafood.pedidos.infra.dto.StatusDTO;
 import br.com.alurafood.pedidos.domain.service.PedidoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,26 +25,26 @@ public class PedidoController {
     private PedidoService service;
 
     @GetMapping
-    public List<PedidoDto> listarTodos() {
+    public List<PedidoDTO> listarTodos() {
         return service.obterTodos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PedidoDto> listarPorId(@PathVariable @NotNull UUID id) {
-        PedidoDto dto = service.obterPorId(id);
+    public ResponseEntity<PedidoDTO> listarPorId(@PathVariable @NotNull UUID id) {
+        PedidoDTO dto = service.obterPorId(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<PedidoDto> realizaPedido(@RequestBody @Valid PedidoDto dto, UriComponentsBuilder uriBuilder) {
-        PedidoDto pedidoRealizado = service.criarPedido(dto);
+    public ResponseEntity<PedidoDTO> realizaPedido(@RequestBody @Valid PedidoDTO dto, UriComponentsBuilder uriBuilder) {
+        PedidoDTO pedidoRealizado = service.criarPedido(dto);
         URI endereco = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedidoRealizado.getId()).toUri();
         return ResponseEntity.created(endereco).body(pedidoRealizado);
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<PedidoDto> atualizaStatus(@PathVariable UUID id, @RequestBody StatusDto status) {
-        PedidoDto dto = service.atualizaStatus(id, status);
+    public ResponseEntity<PedidoDTO> atualizaStatus(@PathVariable UUID id, @RequestBody StatusDTO status) {
+        PedidoDTO dto = service.atualizaStatus(id, status);
         return ResponseEntity.ok(dto);
     }
 
