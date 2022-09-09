@@ -50,8 +50,7 @@ public class PagamentoService {
 
     @Transactional
     public PagamentoDTO atualizar(UUID id, PagamentoDTO dto) {
-        Pagamento pagamento = repository.findById(id)
-                .orElseThrow(() -> new EmptyResultDataAccessException("Recurso não encontrado para o id " + id, 1));
+        Pagamento pagamento = buscarPagamento(id);
         Pagamento pagamentoAtualizado = modelMapper.map(dto, Pagamento.class);
         BeanUtils.copyProperties(pagamentoAtualizado, pagamento, "id");
         repository.saveAndFlush(pagamento);
@@ -59,8 +58,7 @@ public class PagamentoService {
     }
 
     public void confirmarPagamento(UUID id) {
-        Pagamento pagamento = repository.findById(id)
-                .orElseThrow(() -> new EmptyResultDataAccessException("Recurso não encontrado para o id " + id, 1));
+        Pagamento pagamento = buscarPagamento(id);
         pagamento.setStatus(Status.CONFIRMADO);
         pedidoClient.aprovaPagamento(pagamento.getPedidoId());
         repository.saveAndFlush(pagamento);
@@ -71,4 +69,14 @@ public class PagamentoService {
         repository.deleteById(id);
     }
 
+    public void confirmarPagamentoPedidoPendenteIntegracao(UUID id) {
+        Pagamento pagamento = buscarPagamento(id);
+        pagamento.setStatus(Status.CONFIRMADO_PEDIDO_PENDENTE_INTEGRACAO);
+        repository.saveAndFlush(pagamento);
+    }
+
+    private Pagamento buscarPagamento(UUID id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new EmptyResultDataAccessException("Recurso não encontrado para o id " + id, 1));
+    }
 }

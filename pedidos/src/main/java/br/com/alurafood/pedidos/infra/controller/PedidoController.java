@@ -48,7 +48,7 @@ public class PedidoController {
         return ResponseEntity.ok(dto);
     }
 
-    @PatchMapping("/{id}/pago")
+    @PutMapping("/{id}/pago")
     public ResponseEntity<Void> aprovaPagamento(@PathVariable @NotNull UUID id) {
         service.aprovaPagamentoPedido(id);
         return ResponseEntity.ok().build();
@@ -64,6 +64,5 @@ public class PedidoController {
     public String retornaPorta(@Value("${local.server.port}") String porta){
         return String.format("Requisição respondida pela instância executando na porta %s", porta);
     }
-
 
 }

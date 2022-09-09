@@ -22,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.alurafood.pagamentos.infra.dto.PagamentoDTO;
+import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
+
 import br.com.alurafood.pagamentos.domain.service.PagamentoService;
+import br.com.alurafood.pagamentos.infra.dto.PagamentoDTO;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @RestController
 @RequestMapping("pagamento")
@@ -61,9 +64,15 @@ public class PagamentoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}/confirmar")
+    @PatchMapping("/{id}/confirmar")
+    @CircuitBreaker(name = "confirmarPagamentoAtualizaPedido", fallbackMethod = "pagamentoAutorizadoPedidoPendenteIntegracao")
     public ResponseEntity<Void> confirmarPagamento(@PathVariable @NotNull UUID id) {
         service.confirmarPagamento(id);
+        return ResponseEntity.accepted().build();
+    }
+
+    public ResponseEntity<Void> pagamentoAutorizadoPedidoPendenteIntegracao(UUID id, Exception e) {
+        service.confirmarPagamentoPedidoPendenteIntegracao(id);
         return ResponseEntity.accepted().build();
     }
 

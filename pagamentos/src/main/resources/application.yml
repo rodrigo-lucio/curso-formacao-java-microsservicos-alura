@@ -17,3 +17,12 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 server:
   port: 0
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      confirmarPagamentoAtualizaPedido:
+        slidingWindowSize: 3  # Baseado nas ultimas 3 requsições vai fazer a estatística para mudar para o aberto/fechado
+        minimumNumberOfCalls: 2 # Mínimo de chamadas que tem que fazer até o circuit breaker entrar em açao.
+        waitDurantionInOpenState: 50s # Tempo que o circuit breaker vai ficar aberto
+
