@@ -1,6 +1,6 @@
-## 💻 Curso: Microservices do 0 com Spring Cloud, Spring Boot e Docker
+## 💻 Formação: Java e Microsserviços com Spring e RabbitMQ
 
-- Código do curso "Microservices do 0 com Spring Cloud, Spring Boot e Docker" da Udemy - Prof. Leandro Costa.
+- Código da formação "Java e Microsserviços com Spring e RabbitMQ" da Alura.
 
 ## :books: Conteúdos
  - Feign Client;
