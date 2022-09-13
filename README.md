@@ -5,9 +5,8 @@
 ## :books: Conteúdos
  - Feign Client;
  - Service Discovery e Service Registry com Eureka;
- - Load Balancing com Eureka, Feign e Spring Cloud LoadBalancer;
+ - Load Balancing com Eureka, Feign e Spring Cloud Load balancer;
  - Circuit Breaker com Resilience4j;
  - Spring Cloud Gateway;
- - Distributed Tracing com Docker, Zipkin, Eureka e Sleuth;
 
 ☑️ Formação ainda em andamento.
