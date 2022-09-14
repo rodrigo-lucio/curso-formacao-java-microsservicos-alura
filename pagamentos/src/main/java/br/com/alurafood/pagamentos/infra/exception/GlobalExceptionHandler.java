@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import br.com.alurafood.pagamentos.domain.exception.RecursoJaCadastradoException;
 import br.com.alurafood.pagamentos.domain.exception.ServicoException;
+import br.com.alurafood.pagamentos.shared.util.Utils;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -38,7 +39,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<?> handleEmptyResultDataAccessException(ConstraintViolationException ex,
                                                                   WebRequest request) {
-        Erro erros = montaMensagensCamposInvalidos(ex.getConstraintViolations(), HttpStatus.BAD_REQUEST.value());
+        Erro erros = montaMensagensCamposInvalidos(ex.getConstraintViolations());
         return super.handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
@@ -93,19 +94,23 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ServicoException.class})
     public ResponseEntity<Object> handleServiceException(ServicoException ex) {
         return customHandleExceptionInternal(ex, new HttpHeaders(), HttpStatus.BAD_REQUEST, null,
-                Mensagem.builder().mensagem(ex.getMensagem()).build());
+                new Erro(List.of(Mensagem.builder().mensagem(ex.getMensagem()).build())));
     }
 
     private ResponseEntity<Object> customHandleExceptionInternal(Exception ex, HttpHeaders headers, HttpStatus status,
                                                                  WebRequest request, Mensagem mensagem) {
         return super.handleExceptionInternal(ex, mensagem, headers, status, request);
     }
+    private ResponseEntity<Object> customHandleExceptionInternal(Exception ex, HttpHeaders headers, HttpStatus status,
+                                                                 WebRequest request, Erro mensagem) {
+        return super.handleExceptionInternal(ex, mensagem, headers, status, request);
+    }
 
-    private Erro montaMensagensCamposInvalidos(Set<ConstraintViolation<?>> constraintViolations, int codStatus) {
+    private Erro montaMensagensCamposInvalidos(Set<ConstraintViolation<?>> constraintViolations) {
         List<Mensagem> mensagens = new ArrayList<>();
         constraintViolations.forEach(fieldError -> {
             mensagens.add(Mensagem.builder()
-                    .mensagem(String.format("Campo '%s' %s", fieldError.getPropertyPath(), fieldError.getMessage()))
+                    .mensagem(String.format("Campo '%s' %s", Utils.capitalize(fieldError.getPropertyPath().toString()), fieldError.getMessage()))
                     .erro(fieldError.toString())
                     .build());
         });
