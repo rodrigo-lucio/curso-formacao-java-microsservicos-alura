@@ -3,6 +3,7 @@ package br.com.alurafood.pagamentos.shared.util;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -34,5 +35,13 @@ public class Utils {
         }
         String[] result = new String[emptyNames.size()];
         return emptyNames.toArray(result);
+    }
+
+    public String capitalize(String field) {
+        if(StringUtils.isBlank(field)){
+            return field;
+        }
+        String camelCaseCapitalize = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(field), " ");
+        return camelCaseCapitalize.substring(0, 1).toUpperCase().concat(camelCaseCapitalize.substring(1).toLowerCase());
     }
 }
