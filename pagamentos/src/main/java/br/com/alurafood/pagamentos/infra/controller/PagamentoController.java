@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
-
 import br.com.alurafood.pagamentos.domain.service.PagamentoService;
 import br.com.alurafood.pagamentos.infra.dto.PagamentoDTO;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
