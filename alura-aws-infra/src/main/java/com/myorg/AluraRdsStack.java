@@ -47,6 +47,7 @@ public class AluraRdsStack extends Stack {
                         .version(PostgresEngineVersion.VER_11_15)
                         .build()))
                 .vpc(vpc)
+                .databaseName("pagamento")
                 .credentials(Credentials.fromUsername( "rodrigo",
                 CredentialsFromUsernameOptions.builder()
                         .password(SecretValue.unsafePlainText(senha.getValueAsString()))
