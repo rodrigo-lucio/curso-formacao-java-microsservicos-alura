@@ -8,6 +8,12 @@ spring:
     password: postgres
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 eureka:
   instance:
     instance-id: ${spring.application.name}:${random.value}
