@@ -8,12 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class PedidoDTO {
 
+    @JsonIgnore
     private UUID id;
     private LocalDateTime dataHora;
     private Status status;
