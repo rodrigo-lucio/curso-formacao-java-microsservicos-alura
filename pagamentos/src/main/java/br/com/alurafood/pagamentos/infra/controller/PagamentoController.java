@@ -1,11 +1,14 @@
 package br.com.alurafood.pagamentos.infra.controller;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.google.gson.Gson;
+
 import br.com.alurafood.pagamentos.domain.service.PagamentoService;
 import br.com.alurafood.pagamentos.infra.dto.PagamentoDTO;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -32,6 +37,9 @@ public class PagamentoController {
 
     @Autowired
     public PagamentoService service;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @GetMapping
     public Page<PagamentoDTO> listar(@PageableDefault Pageable paginacao){
@@ -47,6 +55,8 @@ public class PagamentoController {
     public ResponseEntity<PagamentoDTO> criar(@RequestBody PagamentoDTO pagamentoDTO, UriComponentsBuilder uriBuilder) {
         PagamentoDTO pagamentoCriado = service.criar(pagamentoDTO);
         URI endereco = uriBuilder.path("/pagamento/{id}").buildAndExpand(pagamentoCriado.getId()).toUri();
+        Gson gson = new Gson();
+        rabbitTemplate.send("pagamento.concluido", new Message(gson.toJson(pagamentoCriado).getBytes()));
         return ResponseEntity.created(endereco).body(pagamentoCriado);
     }
 

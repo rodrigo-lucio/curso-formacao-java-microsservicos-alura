@@ -21,6 +21,7 @@ public class PagamentoAmqpConfiguration {
         return new RabbitAdmin(connectionFactory);
     }
 
+    @Bean
     public ApplicationListener<ApplicationReadyEvent> inicializaAdmin(RabbitAdmin rabbitAdmin) {
         return event -> rabbitAdmin.initialize();
     }
