@@ -3,6 +3,7 @@ package br.com.alurafood.pagamentos.infra.dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import br.com.alurafood.pagamentos.domain.entity.TipoPessoa;
@@ -16,13 +17,12 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PessoaDTO {
 
+    @JsonIgnore
     private UUID id;
     private String nome;
     private TipoPessoa tipoPessoa;
     private String cpfCnpj;
     private String email;
-    private LocalDateTime criadoEm;
-    private LocalDateTime atualizadoEm;
     private UUID pedidoId;
 
 }

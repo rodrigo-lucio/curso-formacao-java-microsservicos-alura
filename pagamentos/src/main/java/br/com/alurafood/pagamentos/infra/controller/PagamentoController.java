@@ -55,8 +55,7 @@ public class PagamentoController {
     public ResponseEntity<PagamentoDTO> criar(@RequestBody PagamentoDTO pagamentoDTO, UriComponentsBuilder uriBuilder) {
         PagamentoDTO pagamentoCriado = service.criar(pagamentoDTO);
         URI endereco = uriBuilder.path("/pagamento/{id}").buildAndExpand(pagamentoCriado.getId()).toUri();
-        Gson gson = new Gson();
-        rabbitTemplate.send("pagamento.concluido", new Message(gson.toJson(pagamentoCriado).getBytes()));
+        rabbitTemplate.convertAndSend("pagamento.concluido", pagamentoCriado);
         return ResponseEntity.created(endereco).body(pagamentoCriado);
     }
 

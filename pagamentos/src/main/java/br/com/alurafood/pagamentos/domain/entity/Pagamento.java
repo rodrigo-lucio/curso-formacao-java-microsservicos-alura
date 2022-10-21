@@ -68,7 +68,7 @@ public class Pagamento {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private StatusPagamento status;
 
     @NotNull
     @Column(name = "pedido_id")

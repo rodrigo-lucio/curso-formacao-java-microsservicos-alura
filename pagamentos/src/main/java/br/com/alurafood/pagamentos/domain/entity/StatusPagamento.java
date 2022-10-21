@@ -1,6 +1,6 @@
 package br.com.alurafood.pagamentos.domain.entity;
 
-public enum Status {
+public enum StatusPagamento {
 
     CRIADO,
     CONFIRMADO,

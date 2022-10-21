@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.alurafood.pagamentos.domain.entity.Pagamento;
-import br.com.alurafood.pagamentos.domain.entity.Status;
+import br.com.alurafood.pagamentos.domain.entity.StatusPagamento;
 import br.com.alurafood.pagamentos.domain.repository.PagamentoRepository;
 import br.com.alurafood.pagamentos.infra.client.PedidoClient;
 import br.com.alurafood.pagamentos.infra.dto.PagamentoDTO;
@@ -43,7 +43,7 @@ public class PagamentoService {
     @Transactional
     public PagamentoDTO criar(PagamentoDTO dto) {
         Pagamento pagamento = modelMapper.map(dto, Pagamento.class);
-        pagamento.setStatus(Status.CRIADO);
+        pagamento.setStatus(StatusPagamento.CRIADO);
         repository.saveAndFlush(pagamento);
         return modelMapper.map(pagamento, PagamentoDTO.class);
     }
@@ -59,7 +59,7 @@ public class PagamentoService {
 
     public void confirmarPagamento(UUID id) {
         Pagamento pagamento = buscarPagamento(id);
-        pagamento.setStatus(Status.CONFIRMADO);
+        pagamento.setStatus(StatusPagamento.CONFIRMADO);
         pedidoClient.aprovaPagamento(pagamento.getPedidoId());
         repository.saveAndFlush(pagamento);
     }
@@ -71,7 +71,7 @@ public class PagamentoService {
 
     public void confirmarPagamentoPedidoPendenteIntegracao(UUID id) {
         Pagamento pagamento = buscarPagamento(id);
-        pagamento.setStatus(Status.CONFIRMADO_PEDIDO_PENDENTE_INTEGRACAO);
+        pagamento.setStatus(StatusPagamento.CONFIRMADO_PEDIDO_PENDENTE_INTEGRACAO);
         repository.saveAndFlush(pagamento);
     }
 
