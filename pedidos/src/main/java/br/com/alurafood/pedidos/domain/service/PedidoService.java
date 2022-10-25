@@ -47,8 +47,8 @@ public class PedidoService {
         pedido.setDataHora(LocalDateTime.now());
         pedido.setStatus(Status.REALIZADO);
         pedido.getItens().forEach(item -> item.setPedido(pedido));
-        Pedido salvo = repository.save(pedido);
-        return modelMapper.map(salvo, PedidoDTO.class);
+        Pedido pedidoSalvo = repository.save(pedido);
+        return modelMapper.map(pedidoSalvo, PedidoDTO.class);
     }
 
     @Transactional
