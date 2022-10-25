@@ -44,7 +44,7 @@ public class PagamentoService {
     public PagamentoDTO criar(PagamentoDTO dto) {
         Pagamento pagamento = modelMapper.map(dto, Pagamento.class);
         pagamento.setStatus(StatusPagamento.CRIADO);
-        repository.saveAndFlush(pagamento);
+        pagamento = repository.saveAndFlush(pagamento);
         return modelMapper.map(pagamento, PagamentoDTO.class);
     }
 
@@ -53,7 +53,7 @@ public class PagamentoService {
         Pagamento pagamento = buscarPagamento(id);
         Pagamento pagamentoAtualizado = modelMapper.map(dto, Pagamento.class);
         BeanUtils.copyProperties(pagamentoAtualizado, pagamento, "id");
-        repository.saveAndFlush(pagamento);
+        pagamento = repository.saveAndFlush(pagamento);
         return modelMapper.map(pagamento, PagamentoDTO.class);
     }
 

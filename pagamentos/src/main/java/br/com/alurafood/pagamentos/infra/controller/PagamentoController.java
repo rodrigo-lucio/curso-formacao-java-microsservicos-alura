@@ -28,6 +28,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.google.gson.Gson;
 
 import br.com.alurafood.pagamentos.domain.service.PagamentoService;
+import br.com.alurafood.pagamentos.infra.amqp.PagamentoEventsConstants;
 import br.com.alurafood.pagamentos.infra.dto.PagamentoDTO;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
@@ -55,7 +56,7 @@ public class PagamentoController {
     public ResponseEntity<PagamentoDTO> criar(@RequestBody PagamentoDTO pagamentoDTO, UriComponentsBuilder uriBuilder) {
         PagamentoDTO pagamentoCriado = service.criar(pagamentoDTO);
         URI endereco = uriBuilder.path("/pagamento/{id}").buildAndExpand(pagamentoCriado.getId()).toUri();
-        rabbitTemplate.convertAndSend("pagamento.concluido", pagamentoCriado);
+        rabbitTemplate.convertAndSend(PagamentoEventsConstants.EXCHANGE_PAGAMENTO_EVENTS, "", pagamentoCriado);
         return ResponseEntity.created(endereco).body(pagamentoCriado);
     }
 
