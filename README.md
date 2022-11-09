@@ -8,7 +8,7 @@
  - Load Balancing com Eureka, Feign e Spring Cloud Load balancer;
  - Circuit Breaker com Resilience4j;
  - Spring Cloud Gateway;
- - Requisições assíncronas Ver primeiro vídeo;
+ - Requisições assíncronas
  - Padrão Pub/Sub;
  - Aprimorando as mensagens;
  - Falhas e resiliência;
