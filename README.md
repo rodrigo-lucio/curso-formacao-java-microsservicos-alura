@@ -8,8 +8,6 @@
  - Spring Cloud Load balancer;
  - Circuit Breaker com Resilience4j;
  - Spring Cloud Gateway;
- - Padrão Pub/Sub;
- - Aprimorando as mensagens;
  - Falhas e resiliência;
  - Alta disponibilidade;
  - VPC, CDK, RDS, ECS na AWS;
