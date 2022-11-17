@@ -5,11 +5,12 @@
 ## :books: Conteúdos
  - Feign Client;
  - Service Discovery e Service Registry com Eureka;
- - Load Balancing com Eureka, Feign e Spring Cloud Load balancer;
+ - Spring Cloud Load balancer;
  - Circuit Breaker com Resilience4j;
  - Spring Cloud Gateway;
- - Requisições assíncronas
  - Padrão Pub/Sub;
  - Aprimorando as mensagens;
  - Falhas e resiliência;
  - Alta disponibilidade;
+ - VPC, CDK, RDS, ECS na AWS;
+ - Requisições assíncronas utilizando o RabbitMQ, incluindo dead letter queue e plugin shovel.
